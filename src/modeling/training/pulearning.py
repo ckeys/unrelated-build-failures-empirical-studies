@@ -176,7 +176,11 @@ def performance_plot(project_name, base_path):
 def PULearning(benchmark_df, df, project_name, base_path):
     df = feature_selection(project_name, df)
     prediction_df = df
-    df = df.drop(columns=['project_name', 'comment_id', 'issue_id', ])
+    # df = df.drop(columns=['project_name', 'comment_id', 'issue_id', ])
+    # positive_data -> train_data
+    # df_for_prediction
+    # unlabeled_data
+    #
     # label_ratio = float(len(benchmark_df)) / float(len(df))
     label_ratio = 0.5
     print(f'''Label Ratio is : {label_ratio}''')
