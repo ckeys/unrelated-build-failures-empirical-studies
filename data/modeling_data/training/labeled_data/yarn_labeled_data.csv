@@ -86,12 +86,9 @@ YARN-1241,13834473,https://issues.apache.org/jira/browse/YARN-1241,1,Unrelated T
 YARN-1121,13811094,https://issues.apache.org/jira/browse/YARN-1121,1,Unrelated Testing Classes,,,,,,,,,,,,,,,
 YARN-6647,16261100,https://issues.apache.org/jira/browse/YARN-6647,1,Unrelated Testing Classes,,,,,,,,,,,,,,,
 YARN-4889,15433775,https://issues.apache.org/jira/browse/YARN-4889,1,Unrelated Testing Classes,,,,,,,,,,,,,,,
-YARN-9323,16779940,https://issues.apache.org/jira/browse/YARN-9323,1,"
-dependency",,,,,,,,,,,,,,,
-YARN-65,16117174,https://issues.apache.org/jira/browse/YARN-65,1,"
-checkstyle, Unrelated Testing Classes",,,,,,,,,,,,,,,
-YARN-160,14541848,https://issues.apache.org/jira/browse/YARN-160,1,"
-unkonwn",,,,,,,,,,,,,,,
+YARN-9323,16779940,https://issues.apache.org/jira/browse/YARN-9323,1,"dependency",,,,,,,,,,,,,,,
+YARN-65,16117174,https://issues.apache.org/jira/browse/YARN-65,1,"checkstyle, Unrelated Testing Classes",,,,,,,,,,,,,,,
+YARN-160,14541848,https://issues.apache.org/jira/browse/YARN-160,1,"unkonwn",,,,,,,,,,,,,,,
 YARN-7375,16217496,https://issues.apache.org/jira/browse/YARN-7375,1,Unrelated Testing Classes,,,,,,,,,,,,,,,
 YARN-876,13691495,https://issues.apache.org/jira/browse/YARN-876,1,Unrelated Testing Classes,,,,,,,,,,,,,,,
 YARN-1582,14297621,https://issues.apache.org/jira/browse/YARN-1582,1,Unrelated Testing Classes,,,,,,,,,,,,,,,

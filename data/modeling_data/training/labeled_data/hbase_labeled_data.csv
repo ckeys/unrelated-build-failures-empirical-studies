@@ -98,8 +98,4 @@ HBASE-19357,16270574,https://issues.apache.org/jira/browse/HBASE-19357,1,various
 HBASE-7051,13487581,https://issues.apache.org/jira/browse/HBASE-7051,1,various behaviour in versions,,,,,,,,,,,,,,,
 HBASE-6173,13291396,https://issues.apache.org/jira/browse/HBASE-6173,1,various behaviours in versions,,,,,,,,,,,,,,,
 HBASE-13135,14348446,https://issues.apache.org/jira/browse/HBASE-13135,1,wrong configuration,,,,,,,,,,,,,,,
-HBASE-16774,15556340,https://issues.apache.org/jira/browse/HBASE-16774,1,"
-flaky","
-",,,,,,,,,,,,,,
-HBASE-7822,13576295,https://issues.apache.org/jira/browse/HBASE-7822,1,flaky,"
-",,,,,,,,,,,,,,
+HBASE-16774,15556340,https://issues.apache.org/jira/browse/HBASE-16774,1,"flaky","",,,,,,,,,,,,,,

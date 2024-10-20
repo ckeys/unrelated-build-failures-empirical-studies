@@ -93,12 +93,7 @@ HADOOP-14518,16052766,https://issues.apache.org/jira/browse/HADOOP-14518,1,Irrel
 HADOOP-13422,15394637,https://issues.apache.org/jira/browse/HADOOP-13422,1,Irrelevant to major changes,,,,,,,,,,,,,,,
 HADOOP-13997,15971477,https://issues.apache.org/jira/browse/HADOOP-13997,1,Irrelevant to major changes,,,,,,,,,,,,,,,
 HADOOP-13955,15827403,https://issues.apache.org/jira/browse/HADOOP-13955,1,Irrelevant to major changes,,,,,,,,,,,,,,,
-HADOOP-12862,15207464,https://issues.apache.org/jira/browse/HADOOP-12862,1,"
-Pre-commit failures",,,,,,,,,,,,,,,
-MAPREDUCE-572,12869583,https://issues.apache.org/jira/browse/MAPREDUCE-572,1,"
-timeout, Pre-commit failures",,,,,,,,,,,,,,,
+HADOOP-12862,15207464,https://issues.apache.org/jira/browse/HADOOP-12862,1,"Pre-commit failures",,,,,,,,,,,,,,,
+MAPREDUCE-572,12869583,https://issues.apache.org/jira/browse/MAPREDUCE-572,1,"timeout, Pre-commit failures",,,,,,,,,,,,,,,
 HADOOP-2148,12580057,https://issues.apache.org/jira/browse/HADOOP-2148,1,Irrelevant to major changes,,,,,,,,,,,,,,,
 HADOOP-13410,15617053,https://issues.apache.org/jira/browse/HADOOP-13410,1,"Irrelevant to major changes,timeout",,,,,,,,,,,,,,,
-HADOOP-12615,15060924,https://issues.apache.org/jira/browse/HADOOP-12615,1,occurs without patches,,,,,,,,,,,,,,,
-MAPREDUCE-572,12869583,https://issues.apache.org/jira/browse/MAPREDUCE-572,1,"
-timeout, Pre-commit failures",,,,,,,,,,,,,,,

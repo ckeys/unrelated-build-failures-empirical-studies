@@ -103,9 +103,9 @@ class JiraCrawler(object):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Apache JIRA Crawler")
-    parser.add_argument("project", help="Name of the Apache project to crawl (e.g., HIVE, CAMEL, CXF)")
-    parser.add_argument("base_path", help="Base directory where crawled data will be saved")
-    parser.add_argument("issue_idx", type=int, help="Starting index of the issue to crawl")
+    parser.add_argument("-project", help="Name of the Apache project to crawl (e.g., HIVE, CAMEL, CXF)")
+    parser.add_argument("-base_path", help="Base directory where crawled data will be saved")
+    parser.add_argument("-issue_idx", type=int, help="Starting index of the issue to crawl")
     parser.add_argument("--sleeptime", type=int, default=5,
                         help="Time in seconds to sleep between each crawl request. Default is 5 seconds.")
 
