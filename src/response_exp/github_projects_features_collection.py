@@ -6,6 +6,9 @@ build failures. This is part of the rebuttal experiment to address reviewer
 concerns about generalizability (V2.R3.C5).
 
 Supports multiple projects via command line arguments.
+
+python src/rebuttal_exp/github_projects_features_collection.py --project keycloak
+
 """
 
 from __future__ import annotations
