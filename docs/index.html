@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Survey: Unrelated CI Build Failures</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --accent: #dbeafe;
+            --success: #16a34a;
+            --success-bg: #f0fdf4;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .header {
+            text-align: center; margin-bottom: 2rem;
+            padding-bottom: 1.5rem; border-bottom: 2px solid var(--border);
+        }
+        .header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--primary); }
+        .header .subtitle { font-size: 0.95rem; color: var(--text-secondary); }
+        .header .time-badge {
+            display: inline-block; background: var(--accent); color: var(--primary);
+            padding: 0.25rem 0.75rem; border-radius: 999px;
+            font-size: 0.85rem; font-weight: 600; margin-top: 0.5rem;
+        }
+        .intro {
+            background: var(--accent); border-left: 4px solid var(--primary);
+            padding: 1rem 1.25rem; border-radius: 0 8px 8px 0;
+            margin-bottom: 2rem; font-size: 0.9rem;
+        }
+        .question-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem;
+            transition: box-shadow 0.2s;
+        }
+        .question-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .q-label {
+            font-weight: 700; font-size: 0.8rem; color: var(--primary);
+            text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem;
+        }
+        .q-text { font-size: 0.95rem; font-weight: 600; margin-bottom: 1rem; }
+        .option-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .option-label {
+            display: flex; align-items: flex-start; gap: 0.6rem;
+            padding: 0.6rem 0.8rem; border: 1px solid var(--border);
+            border-radius: 8px; cursor: pointer; transition: all 0.15s; font-size: 0.9rem;
+        }
+        .option-label:hover { background: var(--accent); border-color: var(--primary); }
+        .option-label input[type="radio"],
+        .option-label input[type="checkbox"] {
+            margin-top: 0.15rem; flex-shrink: 0; accent-color: var(--primary);
+        }
+        .bg-fields { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .bg-field { flex: 1; min-width: 200px; }
+        .bg-field label {
+            display: block; font-size: 0.82rem; font-weight: 600;
+            color: var(--text-secondary); margin-bottom: 0.3rem;
+        }
+        input[type="text"], textarea, select {
+            width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--border);
+            border-radius: 8px; font-size: 0.9rem; font-family: inherit;
+            transition: border-color 0.15s; background: var(--card);
+        }
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        textarea { resize: vertical; min-height: 80px; }
+        .other-input { margin-top: 0.4rem; margin-left: 1.8rem; display: none; }
+        .other-input.visible { display: block; }
+        .submit-section {
+            text-align: center; margin-top: 1.5rem;
+            padding-top: 1.5rem; border-top: 2px solid var(--border);
+        }
+        .submit-btn {
+            background: var(--primary); color: white; border: none;
+            padding: 0.75rem 2.5rem; font-size: 1rem; font-weight: 600;
+            border-radius: 8px; cursor: pointer; transition: background 0.2s;
+        }
+        .submit-btn:hover { background: var(--primary-hover); }
+        .submit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+        .privacy-note { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.75rem; }
+        .success-message { display: none; text-align: center; padding: 3rem 2rem; }
+        .success-message.visible { display: block; }
+        .success-message .check-icon {
+            width: 64px; height: 64px; background: var(--success-bg);
+            border-radius: 50%; display: inline-flex; align-items: center;
+            justify-content: center; margin-bottom: 1rem; font-size: 2rem; color: var(--success);
+        }
+        .success-message h2 { color: var(--success); margin-bottom: 0.5rem; }
+        .success-message p { color: var(--text-secondary); font-size: 0.95rem; }
+        .form-content { display: block; }
+        .form-content.hidden { display: none; }
+        .required-star { color: #ef4444; }
+        .error-text { color: #ef4444; font-size: 0.8rem; margin-top: 0.3rem; display: none; }
+        .error-banner {
+            display: none; background: #fef2f2; border: 1px solid #fecaca;
+            color: #991b1b; padding: 0.75rem 1rem; border-radius: 8px;
+            margin-bottom: 1rem; font-size: 0.9rem;
+        }
+        .error-banner.visible { display: block; }
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .question-card { padding: 1rem; }
+            .bg-field { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Developer Survey: Unrelated CI Build Failures</h1>
+            <p class="subtitle">Understanding developer experiences with CI failures not caused by current code changes</p>
+            <span class="time-badge">~2 minutes to complete</span>
+        </div>
+
+        <div class="form-content" id="formContent">
+            <div class="intro">
+                We are researchers studying <strong>unrelated build failures</strong> in Continuous Integration (CI) &mdash;
+                failures that are <strong>not caused by the developer's current code push</strong>
+                (e.g., infrastructure issues, flaky tests, third-party dependency problems, or failures caused by other developers' concurrent changes).
+                Your anonymous feedback will help validate the practical relevance of our research.
+            </div>
+
+            <div class="error-banner" id="errorBanner">
+                Something went wrong. Please try again or contact us directly.
+            </div>
+
+            <form id="surveyForm" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="6bfbfb30-7a76-45bc-b142-a4cb1daa75a5">
+                <input type="hidden" name="subject" value="New CI Survey Response">
+                <input type="hidden" name="from_name" value="CI Survey">
+                <input type="hidden" name="redirect" value="">
+                <!-- Honeypot spam protection -->
+                <input type="checkbox" name="botcheck" style="display:none">
+
+                <!-- Background -->
+                <div class="question-card">
+                    <div class="q-label">Background</div>
+                    <div class="q-text">Please tell us a bit about yourself</div>
+                    <div class="bg-fields">
+                        <div class="bg-field">
+                            <label for="role">Your Role</label>
+                            <input type="text" id="role" name="Role" placeholder="e.g., Software Engineer, DevOps">
+                        </div>
+                        <div class="bg-field">
+                            <label for="experience">Years of CI/CD Experience</label>
+                            <select id="experience" name="CI/CD Experience">
+                                <option value="">Select...</option>
+                                <option value="Less than 1 year">Less than 1 year</option>
+                                <option value="1-3 years">1–3 years</option>
+                                <option value="3-5 years">3–5 years</option>
+                                <option value="5-10 years">5–10 years</option>
+                                <option value="10+ years">10+ years</option>
+                            </select>
+                        </div>
+                        <div class="bg-field">
+                            <label for="project">Project(s) You Contribute To</label>
+                            <input type="text" id="project" name="Project" placeholder="e.g., Keycloak, Hadoop">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q1 -->
+                <div class="question-card">
+                    <div class="q-label">Question 1 <span class="required-star">*</span></div>
+                    <div class="q-text">How frequently do you encounter CI build failures that you believe are NOT caused by your code changes?</div>
+                    <div class="option-group">
+                        <label class="option-label"><input type="radio" name="Q1 Frequency" value="Very frequently (multiple times per week)" required> Very frequently (multiple times per week)</label>
+                        <label class="option-label"><input type="radio" name="Q1 Frequency" value="Frequently (a few times per month)"> Frequently (a few times per month)</label>
+                        <label class="option-label"><input type="radio" name="Q1 Frequency" value="Occasionally (a few times per quarter)"> Occasionally (a few times per quarter)</label>
+                        <label class="option-label"><input type="radio" name="Q1 Frequency" value="Rarely (a few times per year)"> Rarely (a few times per year)</label>
+                        <label class="option-label"><input type="radio" name="Q1 Frequency" value="Never"> Never</label>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="question-card">
+                    <div class="q-label">Question 2 <span class="required-star">*</span></div>
+                    <div class="q-text">When you encounter a CI build failure after pushing your code, how much time do you typically spend investigating whether the failure is related to your changes before concluding it is unrelated?</div>
+                    <div class="option-group">
+                        <label class="option-label"><input type="radio" name="Q2 Time Spent" value="Less than 10 minutes" required> Less than 10 minutes</label>
+                        <label class="option-label"><input type="radio" name="Q2 Time Spent" value="10-30 minutes"> 10–30 minutes</label>
+                        <label class="option-label"><input type="radio" name="Q2 Time Spent" value="30 minutes - 1 hour"> 30 minutes – 1 hour</label>
+                        <label class="option-label"><input type="radio" name="Q2 Time Spent" value="1-5 hours"> 1–5 hours</label>
+                        <label class="option-label"><input type="radio" name="Q2 Time Spent" value="More than 5 hours"> More than 5 hours</label>
+                    </div>
+                </div>
+
+                <!-- Q3 (checkboxes handled via JS) -->
+                <div class="question-card">
+                    <div class="q-label">Question 3 <span class="required-star">*</span></div>
+                    <div class="q-text">What actions do you typically take when you determine a CI build failure is unrelated to your code changes? (Select all that apply)</div>
+                    <div class="option-group">
+                        <label class="option-label"><input type="checkbox" class="q3cb" value="Re-run/retry the build"> Re-run / retry the build</label>
+                        <label class="option-label"><input type="checkbox" class="q3cb" value="Ignore the failure and proceed with the merge"> Ignore the failure and proceed with the merge</label>
+                        <label class="option-label"><input type="checkbox" class="q3cb" value="Report the issue to the CI/infrastructure team"> Report the issue to the CI/infrastructure team</label>
+                        <label class="option-label"><input type="checkbox" class="q3cb" value="Investigate the root cause myself"> Investigate the root cause myself even though it is unrelated</label>
+                        <label class="option-label"><input type="checkbox" class="q3cb" value="Wait for the issue to be resolved by others"> Wait for the issue to be resolved by others</label>
+                        <label class="option-label"><input type="checkbox" class="q3cb" value="Other" id="q3Other"> Other</label>
+                    </div>
+                    <div class="other-input" id="q3OtherInput">
+                        <input type="text" id="q3OtherText" placeholder="Please specify...">
+                    </div>
+                    <div class="error-text" id="q3Error">Please select at least one option.</div>
+                </div>
+                <input type="hidden" name="Q3 Actions" id="q3Hidden" value="">
+
+                <!-- Q4 -->
+                <div class="question-card">
+                    <div class="q-label">Question 4 <span class="required-star">*</span></div>
+                    <div class="q-text">If a tool could automatically predict whether a CI build failure is likely unrelated to your current code push, how useful would that be for your workflow?</div>
+                    <div class="option-group">
+                        <label class="option-label"><input type="radio" name="Q4 Usefulness" value="Very useful - it would significantly save my investigation time" required> Very useful &mdash; it would significantly save my investigation time</label>
+                        <label class="option-label"><input type="radio" name="Q4 Usefulness" value="Somewhat useful - it would provide a helpful starting point"> Somewhat useful &mdash; it would provide a helpful starting point</label>
+                        <label class="option-label"><input type="radio" name="Q4 Usefulness" value="Neutral - I am unsure how it would affect my workflow"> Neutral &mdash; I am unsure how it would affect my workflow</label>
+                        <label class="option-label"><input type="radio" name="Q4 Usefulness" value="Not very useful - I prefer to investigate failures myself"> Not very useful &mdash; I prefer to investigate failures myself</label>
+                        <label class="option-label"><input type="radio" name="Q4 Usefulness" value="Not useful at all"> Not useful at all &mdash; I do not see the value</label>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="question-card">
+                    <div class="q-label">Question 5 (Optional)</div>
+                    <div class="q-text">Is there anything else you would like to share about your experience with CI build failures that are not caused by your code changes?</div>
+                    <textarea id="q5" name="Q5 Comments" placeholder="For example: challenges you face, information that would help you, or any other thoughts..."></textarea>
+                </div>
+
+                <!-- Submit -->
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn" id="submitBtn">Submit Response</button>
+                    <p class="privacy-note">All responses are anonymous and used solely for academic research purposes.</p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success -->
+        <div class="success-message" id="successMessage">
+            <div class="check-icon">&#10003;</div>
+            <h2>Thank You!</h2>
+            <p>Your response has been recorded successfully.<br>We greatly appreciate your time and feedback.</p>
+            <p style="margin-top:1.5rem; font-size:0.85rem; color:#94a3b8;">You may close this page now.</p>
+        </div>
+    </div>
+
+    <script>
+        var form = document.getElementById('surveyForm');
+        var formContent = document.getElementById('formContent');
+        var successMsg = document.getElementById('successMessage');
+        var submitBtn = document.getElementById('submitBtn');
+        var errorBanner = document.getElementById('errorBanner');
+        var q3Other = document.getElementById('q3Other');
+        var q3OtherInput = document.getElementById('q3OtherInput');
+        var q3Error = document.getElementById('q3Error');
+        var q3Hidden = document.getElementById('q3Hidden');
+
+        q3Other.addEventListener('change', function () {
+            q3OtherInput.classList.toggle('visible', this.checked);
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            errorBanner.classList.remove('visible');
+            q3Error.style.display = 'none';
+
+            // Collect Q3 checkboxes into hidden field
+            var checked = document.querySelectorAll('.q3cb:checked');
+            if (checked.length === 0) {
+                q3Error.style.display = 'block';
+                document.querySelector('.q3cb').closest('.question-card')
+                    .scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            var vals = [];
+            checked.forEach(function (cb) { vals.push(cb.value); });
+            var otherText = document.getElementById('q3OtherText').value;
+            if (q3Other.checked && otherText) {
+                vals[vals.length - 1] = 'Other: ' + otherText;
+            }
+            q3Hidden.value = vals.join('; ');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            var formData = new FormData(form);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                if (data.success) {
+                    formContent.classList.add('hidden');
+                    successMsg.classList.add('visible');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    throw new Error(data.message || 'Submission failed');
+                }
+            })
+            .catch(function () {
+                errorBanner.classList.add('visible');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Response';
+            });
+        });
+    </script>
+</body>
+</html>
